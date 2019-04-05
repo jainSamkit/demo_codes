@@ -1,0 +1,1 @@
+/home/darth/Desktop/sc2_ros/devel/.private/commander/share/gennodejs/ros/commander/srv/DELETE_OBS_CAPTURE.js

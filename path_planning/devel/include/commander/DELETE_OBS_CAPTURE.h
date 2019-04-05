@@ -1,0 +1,1 @@
+/home/darth/Desktop/sc2_ros/devel/.private/commander/include/commander/DELETE_OBS_CAPTURE.h

@@ -1,0 +1,1 @@
+/home/darth/Desktop/sc2_ros/devel/.private/navigation/share/gennodejs/ros/navigation/srv/GlobalSetpoint.js

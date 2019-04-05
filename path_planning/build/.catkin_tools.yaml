@@ -1,0 +1,6 @@
+devel_space: /home/darth/Desktop/sc2_ros/devel
+install: false
+install_space: /home/darth/Desktop/sc2_ros/install
+profile: default
+source_space: /home/darth/Desktop/sc2_ros/src
+workspace: /home/darth/Desktop/sc2_ros

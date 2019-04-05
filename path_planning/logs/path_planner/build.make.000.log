@@ -1,0 +1,42 @@
+[35m[1mScanning dependencies of target _path_planner_generate_messages_check_deps_FindPath[0m
+[35m[1mScanning dependencies of target std_msgs_generate_messages_py[0m
+[35m[1mScanning dependencies of target std_msgs_generate_messages_cpp[0m
+[35m[1mScanning dependencies of target std_msgs_generate_messages_eus[0m
+[35m[1mScanning dependencies of target path_planning_node[0m
+[35m[1mScanning dependencies of target _path_planner_generate_messages_check_deps_CreateGraph[0m
+[35m[1mScanning dependencies of target std_msgs_generate_messages_nodejs[0m
+[35m[1mScanning dependencies of target std_msgs_generate_messages_lisp[0m
+[  0%] Built target std_msgs_generate_messages_eus
+[  0%] Built target std_msgs_generate_messages_py
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_nodejs
+[  0%] Built target std_msgs_generate_messages_lisp
+[  0%] Built target _path_planner_generate_messages_check_deps_CreateGraph
+[  0%] Built target _path_planner_generate_messages_check_deps_FindPath
+[  7%] [32mBuilding CXX object CMakeFiles/path_planning_node.dir/src/path_planner_node.cpp.o[0m
+[35m[1mScanning dependencies of target path_planner_generate_messages_eus[0m
+[35m[1mScanning dependencies of target path_planner_generate_messages_cpp[0m
+[35m[1mScanning dependencies of target path_planner_generate_messages_nodejs[0m
+[35m[1mScanning dependencies of target path_planner_generate_messages_py[0m
+[35m[1mScanning dependencies of target path_planner_generate_messages_lisp[0m
+[ 14%] [34m[1mGenerating EusLisp code from path_planner/FindPath.srv[0m
+[ 21%] [34m[1mGenerating EusLisp manifest code for path_planner[0m
+[ 28%] [34m[1mGenerating EusLisp code from path_planner/CreateGraph.srv[0m
+[ 35%] [34m[1mGenerating C++ code from path_planner/FindPath.srv[0m
+[ 42%] [34m[1mGenerating Lisp code from path_planner/FindPath.srv[0m
+[ 50%] [34m[1mGenerating Javascript code from path_planner/FindPath.srv[0m
+[ 57%] [34m[1mGenerating Python code from SRV path_planner/FindPath[0m
+[ 64%] [34m[1mGenerating C++ code from path_planner/CreateGraph.srv[0m
+[ 71%] [34m[1mGenerating Javascript code from path_planner/CreateGraph.srv[0m
+[ 78%] [34m[1mGenerating Lisp code from path_planner/CreateGraph.srv[0m
+[ 85%] [34m[1mGenerating Python code from SRV path_planner/CreateGraph[0m
+[ 85%] Built target path_planner_generate_messages_lisp
+[ 85%] Built target path_planner_generate_messages_nodejs
+[ 92%] [34m[1mGenerating Python srv __init__.py for path_planner[0m
+[ 92%] Built target path_planner_generate_messages_py
+[ 92%] Built target path_planner_generate_messages_cpp
+[ 92%] Built target path_planner_generate_messages_eus
+[35m[1mScanning dependencies of target path_planner_generate_messages[0m
+[ 92%] Built target path_planner_generate_messages
+[100%] [32m[1mLinking CXX executable /home/darth/Desktop/sc2_ros/devel/.private/path_planner/lib/path_planner/path_planning_node[0m
+[100%] Built target path_planning_node

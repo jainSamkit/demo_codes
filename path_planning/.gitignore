@@ -1,0 +1,5 @@
+*.pyc
+./devel
+./build
+./logs
+.catkin_tools

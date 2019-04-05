@@ -1,0 +1,86 @@
+[35m[1mScanning dependencies of target _commander_generate_messages_check_deps_GET_MAP_INFO[0m
+[35m[1mScanning dependencies of target _commander_generate_messages_check_deps_CANCEL_OBS_CAPTURE[0m
+[35m[1mScanning dependencies of target _commander_generate_messages_check_deps_STOP_OBS_CAPTURE[0m
+[35m[1mScanning dependencies of target std_msgs_generate_messages_py[0m
+[  0%] Built target std_msgs_generate_messages_py
+[  0%] Built target _commander_generate_messages_check_deps_GET_MAP_INFO
+[35m[1mScanning dependencies of target sensor_msgs_generate_messages_py[0m
+[35m[1mScanning dependencies of target geometry_msgs_generate_messages_py[0m
+[  0%] Built target _commander_generate_messages_check_deps_STOP_OBS_CAPTURE
+[  0%] Built target sensor_msgs_generate_messages_py
+[  0%] Built target geometry_msgs_generate_messages_py
+[  0%] Built target _commander_generate_messages_check_deps_CANCEL_OBS_CAPTURE
+[35m[1mScanning dependencies of target _commander_generate_messages_check_deps_START_OBS_CAPTURE[0m
+[35m[1mScanning dependencies of target _commander_generate_messages_check_deps_SAVE_OBS_DATA[0m
+[35m[1mScanning dependencies of target sensor_msgs_generate_messages_cpp[0m
+[35m[1mScanning dependencies of target _commander_generate_messages_check_deps_DELETE_OBS_CAPTURE[0m
+[35m[1mScanning dependencies of target std_msgs_generate_messages_cpp[0m
+[35m[1mScanning dependencies of target geometry_msgs_generate_messages_cpp[0m
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target geometry_msgs_generate_messages_cpp
+[35m[1mScanning dependencies of target std_msgs_generate_messages_eus[0m
+[35m[1mScanning dependencies of target geometry_msgs_generate_messages_eus[0m
+[  0%] Built target sensor_msgs_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_eus
+[  0%] Built target _commander_generate_messages_check_deps_START_OBS_CAPTURE
+[  0%] Built target geometry_msgs_generate_messages_eus
+[  0%] Built target _commander_generate_messages_check_deps_DELETE_OBS_CAPTURE
+[35m[1mScanning dependencies of target sensor_msgs_generate_messages_eus[0m
+[  0%] Built target _commander_generate_messages_check_deps_SAVE_OBS_DATA
+[35m[1mScanning dependencies of target geometry_msgs_generate_messages_lisp[0m
+[  0%] Built target sensor_msgs_generate_messages_eus
+[35m[1mScanning dependencies of target sensor_msgs_generate_messages_lisp[0m
+[  0%] Built target sensor_msgs_generate_messages_lisp
+[35m[1mScanning dependencies of target std_msgs_generate_messages_lisp[0m
+[  0%] Built target geometry_msgs_generate_messages_lisp
+[  0%] Built target std_msgs_generate_messages_lisp
+[35m[1mScanning dependencies of target geometry_msgs_generate_messages_nodejs[0m
+[35m[1mScanning dependencies of target sensor_msgs_generate_messages_nodejs[0m
+[  0%] Built target geometry_msgs_generate_messages_nodejs
+[  0%] Built target sensor_msgs_generate_messages_nodejs
+[35m[1mScanning dependencies of target std_msgs_generate_messages_nodejs[0m
+[35m[1mScanning dependencies of target commander_generate_messages_py[0m
+[  3%] Built target std_msgs_generate_messages_nodejs
+[  3%] [34m[1mGenerating Python code from SRV commander/STOP_OBS_CAPTURE[0m
+[35m[1mScanning dependencies of target commander_generate_messages_cpp[0m
+[  6%] [34m[1mGenerating C++ code from commander/STOP_OBS_CAPTURE.srv[0m
+[  9%] [34m[1mGenerating Python code from SRV commander/SAVE_OBS_DATA[0m
+[ 12%] [34m[1mGenerating Python code from SRV commander/CANCEL_OBS_CAPTURE[0m
+[ 15%] [34m[1mGenerating Python code from SRV commander/DELETE_OBS_CAPTURE[0m
+[ 18%] [34m[1mGenerating Python code from SRV commander/GET_MAP_INFO[0m
+[ 21%] [34m[1mGenerating Python code from SRV commander/START_OBS_CAPTURE[0m
+[ 25%] [34m[1mGenerating C++ code from commander/SAVE_OBS_DATA.srv[0m
+[ 28%] [34m[1mGenerating C++ code from commander/CANCEL_OBS_CAPTURE.srv[0m
+[ 31%] [34m[1mGenerating Python srv __init__.py for commander[0m
+[ 31%] Built target commander_generate_messages_py
+[35m[1mScanning dependencies of target commander_generate_messages_eus[0m
+[ 34%] [34m[1mGenerating EusLisp code from commander/STOP_OBS_CAPTURE.srv[0m
+[35m[1mScanning dependencies of target commander_generate_messages_lisp[0m
+[ 37%] [34m[1mGenerating C++ code from commander/DELETE_OBS_CAPTURE.srv[0m
+[ 40%] [34m[1mGenerating Lisp code from commander/STOP_OBS_CAPTURE.srv[0m
+[ 43%] [34m[1mGenerating Lisp code from commander/SAVE_OBS_DATA.srv[0m
+[ 46%] [34m[1mGenerating EusLisp code from commander/SAVE_OBS_DATA.srv[0m
+[ 50%] [34m[1mGenerating Lisp code from commander/CANCEL_OBS_CAPTURE.srv[0m
+[ 53%] [34m[1mGenerating EusLisp code from commander/CANCEL_OBS_CAPTURE.srv[0m
+[ 56%] [34m[1mGenerating Lisp code from commander/DELETE_OBS_CAPTURE.srv[0m
+[ 59%] [34m[1mGenerating Lisp code from commander/GET_MAP_INFO.srv[0m
+[ 62%] [34m[1mGenerating EusLisp code from commander/DELETE_OBS_CAPTURE.srv[0m
+[ 65%] [34m[1mGenerating Lisp code from commander/START_OBS_CAPTURE.srv[0m
+[ 68%] [34m[1mGenerating C++ code from commander/GET_MAP_INFO.srv[0m
+[ 71%] [34m[1mGenerating C++ code from commander/START_OBS_CAPTURE.srv[0m
+[ 75%] [34m[1mGenerating EusLisp code from commander/GET_MAP_INFO.srv[0m
+[ 75%] Built target commander_generate_messages_lisp
+[35m[1mScanning dependencies of target commander_generate_messages_nodejs[0m
+[ 78%] [34m[1mGenerating Javascript code from commander/STOP_OBS_CAPTURE.srv[0m
+[ 81%] [34m[1mGenerating EusLisp code from commander/START_OBS_CAPTURE.srv[0m
+[ 84%] [34m[1mGenerating EusLisp manifest code for commander[0m
+[ 87%] [34m[1mGenerating Javascript code from commander/SAVE_OBS_DATA.srv[0m
+[ 90%] [34m[1mGenerating Javascript code from commander/CANCEL_OBS_CAPTURE.srv[0m
+[ 93%] [34m[1mGenerating Javascript code from commander/DELETE_OBS_CAPTURE.srv[0m
+[ 96%] [34m[1mGenerating Javascript code from commander/GET_MAP_INFO.srv[0m
+[100%] [34m[1mGenerating Javascript code from commander/START_OBS_CAPTURE.srv[0m
+[100%] Built target commander_generate_messages_cpp
+[100%] Built target commander_generate_messages_nodejs
+[100%] Built target commander_generate_messages_eus
+[35m[1mScanning dependencies of target commander_generate_messages[0m
+[100%] Built target commander_generate_messages

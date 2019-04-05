@@ -1,0 +1,6 @@
+float64 lat_x1
+float64 lng_y1
+float64 lat_x2
+float64 lng_y2
+---
+string res

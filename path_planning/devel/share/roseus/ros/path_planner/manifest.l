@@ -1,0 +1,1 @@
+/home/darth/Desktop/sc2_ros/devel/.private/path_planner/share/roseus/ros/path_planner/manifest.l

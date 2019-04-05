@@ -1,0 +1,1 @@
+/home/darth/Desktop/sc2_ros/devel/.private/path_planner/share/gennodejs/ros/path_planner/_index.js

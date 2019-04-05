@@ -1,0 +1,27 @@
+[  0%] Built target std_msgs_generate_messages_py
+[  0%] Built target geometry_msgs_generate_messages_py
+[  0%] Built target sensor_msgs_generate_messages_py
+[  0%] Built target _commander_generate_messages_check_deps_CANCEL_OBS_CAPTURE
+[  0%] Built target _commander_generate_messages_check_deps_STOP_OBS_CAPTURE
+[  0%] Built target _commander_generate_messages_check_deps_GET_MAP_INFO
+[  0%] Built target _commander_generate_messages_check_deps_START_OBS_CAPTURE
+[  0%] Built target geometry_msgs_generate_messages_cpp
+[  0%] Built target sensor_msgs_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target _commander_generate_messages_check_deps_SAVE_OBS_DATA
+[  0%] Built target std_msgs_generate_messages_eus
+[  0%] Built target sensor_msgs_generate_messages_eus
+[  0%] Built target geometry_msgs_generate_messages_eus
+[  0%] Built target _commander_generate_messages_check_deps_DELETE_OBS_CAPTURE
+[  0%] Built target geometry_msgs_generate_messages_lisp
+[  0%] Built target sensor_msgs_generate_messages_lisp
+[  0%] Built target std_msgs_generate_messages_lisp
+[  0%] Built target std_msgs_generate_messages_nodejs
+[  0%] Built target sensor_msgs_generate_messages_nodejs
+[  0%] Built target geometry_msgs_generate_messages_nodejs
+[ 18%] Built target commander_generate_messages_cpp
+[ 40%] Built target commander_generate_messages_py
+[ 59%] Built target commander_generate_messages_lisp
+[ 81%] Built target commander_generate_messages_eus
+[100%] Built target commander_generate_messages_nodejs
+[100%] Built target commander_generate_messages

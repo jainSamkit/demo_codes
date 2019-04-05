@@ -1,0 +1,1 @@
+/home/darth/Desktop/sc2_ros/devel/.private/navigation/lib/python2.7/dist-packages/nav_node_tester/__init__.py

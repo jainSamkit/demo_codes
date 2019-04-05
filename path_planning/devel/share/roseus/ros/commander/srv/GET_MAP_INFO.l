@@ -1,0 +1,1 @@
+/home/darth/Desktop/sc2_ros/devel/.private/commander/share/roseus/ros/commander/srv/GET_MAP_INFO.l

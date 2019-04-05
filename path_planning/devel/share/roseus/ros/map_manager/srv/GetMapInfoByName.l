@@ -1,0 +1,1 @@
+/home/darth/Desktop/sc2_ros/devel/.private/map_manager/share/roseus/ros/map_manager/srv/GetMapInfoByName.l

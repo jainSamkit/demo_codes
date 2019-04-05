@@ -1,0 +1,6 @@
+string map_id
+int8 roadmap_growth_time
+int8 roadmap_expansion_time
+---
+bool success
+string message

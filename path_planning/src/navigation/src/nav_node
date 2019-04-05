@@ -1,0 +1,9 @@
+#!/usr/bin/env python
+"""@package navigation
+"""
+
+# from vision_apps.msg import *
+# from vision_apps.srv import *
+
+from nav_node import navigation_server
+navigation_server.main()

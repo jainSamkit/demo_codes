@@ -1,0 +1,1 @@
+/home/darth/Desktop/sc2_ros/devel/.private/navigation/share/roseus/ros/navigation/srv/GlobalSetpoint.l

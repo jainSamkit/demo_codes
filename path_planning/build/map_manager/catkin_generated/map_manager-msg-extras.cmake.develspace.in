@@ -1,0 +1,2 @@
+set(map_manager_MESSAGE_FILES "/home/darth/Desktop/sc2_ros/src/map_manager/msg/Float1DArray.msg")
+set(map_manager_SERVICE_FILES "/home/darth/Desktop/sc2_ros/src/map_manager/srv/SaveMap.srv;/home/darth/Desktop/sc2_ros/src/map_manager/srv/SaveObstacles.srv;/home/darth/Desktop/sc2_ros/src/map_manager/srv/StartMission.srv;/home/darth/Desktop/sc2_ros/src/map_manager/srv/GetObstacles.srv;/home/darth/Desktop/sc2_ros/src/map_manager/srv/GetMapList.srv;/home/darth/Desktop/sc2_ros/src/map_manager/srv/GetMapInfoByName.srv")

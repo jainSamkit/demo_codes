@@ -1,0 +1,25 @@
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target _map_manager_generate_messages_check_deps_GetMapInfoByName
+[  0%] Built target _map_manager_generate_messages_check_deps_SaveObstacles
+[  0%] Built target _map_manager_generate_messages_check_deps_SaveMap
+[  0%] Built target _map_manager_generate_messages_check_deps_Float1DArray
+[  0%] Built target _map_manager_generate_messages_check_deps_StartMission
+[  0%] Built target std_msgs_generate_messages_py
+[  0%] Built target std_msgs_generate_messages_nodejs
+[  0%] Built target _map_manager_generate_messages_check_deps_GetObstacles
+[  0%] Built target std_msgs_generate_messages_lisp
+[  0%] Built target _map_manager_generate_messages_check_deps_GetMapList
+[  0%] Built target std_msgs_generate_messages_eus
+[  2%] [34m[1mGenerating C++ code from map_manager/GetMapInfoByName.srv[0m
+[  5%] [34m[1mGenerating EusLisp code from map_manager/GetMapInfoByName.srv[0m
+[  7%] [34m[1mGenerating Python code from SRV map_manager/GetMapInfoByName[0m
+[ 10%] [34m[1mGenerating Lisp code from map_manager/GetMapInfoByName.srv[0m
+[ 13%] [34m[1mGenerating Javascript code from map_manager/GetMapInfoByName.srv[0m
+[ 44%] Built target map_manager_generate_messages_lisp
+[ 44%] Built target map_manager_generate_messages_nodejs
+[ 47%] [34m[1mGenerating Python msg __init__.py for map_manager[0m
+[ 50%] [34m[1mGenerating Python srv __init__.py for map_manager[0m
+[ 68%] Built target map_manager_generate_messages_eus
+[ 84%] Built target map_manager_generate_messages_py
+[100%] Built target map_manager_generate_messages_cpp
+[100%] Built target map_manager_generate_messages

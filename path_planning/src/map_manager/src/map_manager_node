@@ -1,0 +1,4 @@
+#!/usr/bin/python
+
+from lib_map_manager import map_manager_utils
+map_manager_utils.main()

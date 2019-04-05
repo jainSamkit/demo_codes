@@ -1,0 +1,6 @@
+set(map_manager_SETUP_PY_VERSION "0.0.0")
+set(map_manager_SETUP_PY_SCRIPTS "")
+set(map_manager_SETUP_PY_PACKAGES "lib_map_manager;lib_trajectory_smoothening")
+set(map_manager_SETUP_PY_PACKAGE_DIRS "python/lib_map_manager;python/lib_trajectory_smoothening")
+set(map_manager_SETUP_PY_MODULES "")
+set(map_manager_SETUP_PY_MODULE_DIRS "")

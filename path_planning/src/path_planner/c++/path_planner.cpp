@@ -1,0 +1,450 @@
+#include <ompl/geometric/planners/prm/PRM.h>
+#include <ompl/geometric/planners/prm/PRMstar.h>
+#include <ompl/base/PlannerTerminationCondition.h>
+#include <ompl/control/SpaceInformation.h>
+#include <ompl/base/objectives/PathLengthOptimizationObjective.h>
+#include <ompl/base/spaces/RealVectorStateSpace.h>
+#include <ompl/control/SimpleSetup.h>
+#include <ompl/config.h>
+#include <ompl/util/PPM.h>
+#include <ompl/base/MotionValidator.h>
+#include <ompl/base/PlannerTerminationCondition.h> 
+#include <boost/filesystem.hpp>
+#include <boost/graph/graphviz.hpp>
+#include <boost/graph/adjacency_list.hpp>
+#include <boost/graph/detail/adjacency_list.hpp>
+#include <boost/graph/graph_traits.hpp>
+#include <boost/graph/properties.hpp>
+#include <boost/graph/labeled_graph.hpp>
+#include <iostream>
+#include <valarray>
+#include <limits>
+#include <sstream>
+#include <fstream>
+#include <random>
+#include <cmath>
+#include <string>
+#include <cstring>
+#include <time.h>
+#include "json.hpp"
+#include <ctime>
+#include <memory>
+#include "ros/ros.h"
+#include "path_planner/CreateGraph.h"
+#include "path_planner/FindPath.h"
+#include "ros/package.h"
+
+namespace ob = ompl::base;
+namespace oc = ompl::control;
+namespace og = ompl::geometric;
+
+double query_time = 0.05;
+double distance_from_goal_threshold = 2.0;
+time_t start_time = time(NULL);
+std::string path_to_io_files = "";
+std::string error = "";
+bool error_occured = false;
+bool has_system_restarted = true;
+
+og::PRMstar* path_planner_ptr{nullptr}; 
+
+using namespace boost;
+
+typedef boost::adjacency_list<vecS, vecS, undirectedS,
+                              property<vertex_name_t, std::string>,
+                              property<edge_weight_t, double> > Graph;
+
+class LengthMotionValidator : public ob::MotionValidator
+{
+public:
+    std::vector<std::vector<double>> occupancy_grid;
+    std::string location = "";
+    ob::SpaceInformationPtr si;
+    ompl::PPM ppm;
+    std::string map_id = "";
+    int cols;
+    int rows;
+    
+    LengthMotionValidator(ob::SpaceInformationPtr si_, std::string path_to_io_files, std::string map_id_ ) : MotionValidator(si_) {
+        location = path_to_io_files;
+        map_id = map_id_;
+        create_occupancy_grid();
+        si = si_;
+    }
+
+    void create_occupancy_grid()
+    {
+        //Setting up the file location
+        try
+        {
+            std::cout<<"Creating occupancy grid for path planner ..."<<std::endl;
+            std::string path = location+map_id+"_map.ppm";
+            const char* tmp = path.c_str();
+            char* path_to_ppm_file = strdup(tmp);
+
+            if(!boost::filesystem::exists(path_to_ppm_file))
+            {   
+                throw std::runtime_error(path+"does not exist.");
+            }
+
+            //Reading PPM file
+            ppm.loadFile(path_to_ppm_file);
+            cols = ppm.getWidth();
+            rows = ppm.getHeight();
+            std::cout<<"Image size(rows,cols) = "<<rows<<", "<<cols<<std::endl;
+        }
+
+        catch(std::runtime_error e)
+        {
+            error_occured = true;
+            error = e.what();
+        }
+    }
+
+    double distance(double a[2], double b[2]) const
+    {
+        double delta_x = a[0] - b[0];
+        double delta_y = a[1] - b[1];
+        double distance_ = std::sqrt(delta_x*delta_x + delta_y*delta_y);
+        return distance_;
+    }
+
+    bool collisionCheck(double x_1, double y_1, double x_2, double y_2) const
+    {
+        double slope = atan2(y_2 - y_1,x_2-x_1+0.0001);
+        double total_length = sqrt((x_2-x_1)*(x_2-x_1)+(y_2-y_1)*(y_2-y_1));
+        double segment_length = 0.1;
+        int num_segments = total_length/segment_length;
+
+        for(int i = 0; i<=num_segments; i++)
+        {
+            double new_x = std::max(std::min(x_1+i*segment_length*cos(slope),double(cols-1)),0.0);
+            double new_y = std::max(std::min(y_1+i*segment_length*sin(slope),double(rows-1)),0.0);
+            int x = new_x;
+            int y = new_y;
+
+            auto pixel = ppm.getPixel(y,x);
+            double red = pixel.red;
+
+            if(red != 0) 
+            {
+                return false;
+            }
+        }
+
+        int end_x = std::max(std::min(x_2,double(cols-1)),0.0);
+        int end_y = std::max(std::min(y_2,double(rows-1)),0.0);
+
+        auto pixel_end = ppm.getPixel(end_y,end_x);
+        double red_end = pixel_end.red;
+
+        if(red_end != 0) return false;
+        return true;
+    }
+
+    bool checkMotion(const ob::State *s1, const ob::State *s2) const override
+    {
+        const ob::RealVectorStateSpace::StateType *state_1 = s1->as<ob::RealVectorStateSpace::StateType>();
+        double *values_1= state_1->values;
+        double x_1 = values_1[0];
+        double y_1 = values_1[1];
+
+        const ob::RealVectorStateSpace::StateType *state_2 = s2->as<ob::RealVectorStateSpace::StateType>();
+        double *values_2 = state_2->values;
+        double x_2 = values_2[0];
+        double y_2 = values_2[1];
+
+        //This is for first pair of {(x1,y1),(x2,y2)} generated by the sampler which are always the start and the goal state.
+        // if(std::abs(x_1 - start_x) < 0.1 && std::abs(y_1-start_y) < 0.1 && std::abs(x_2 - goal_x) < 0.1 && std::abs(y_2 - goal_y) < 0.1)
+        // {
+        //     bool check = collisionCheck(x_1,y_1,x_2,y_2);
+        //     return check;
+        // }
+
+        bool min_distance_check = true;
+        bool collision_check = true;
+        bool delta_yaw_check = true;
+
+        // if(distance < min_distance_between_states) min_distance_check = false;
+        collision_check = collisionCheck(x_1,y_1,x_2,y_2);
+        if(min_distance_check * collision_check * delta_yaw_check) 
+        {
+            return true;
+        }
+        return false;
+    }
+    bool checkMotion(const ob::State *s1, const ob::State *s2, std::pair<ob::State *, double> &lastValid) const override
+    {
+        return false;
+    }
+};
+
+bool planner_terminate_fn()
+{
+    time_t time_now = time(NULL);
+    double time_diff = time_now - start_time;
+    bool status = false;
+    if(time_diff > query_time) status = true;
+    return status;
+}
+
+class planner_termination : public ob::PlannerTerminationCondition
+{
+public:
+    planner_termination(const ob::PlannerTerminationConditionFn &fn):PlannerTerminationCondition(fn)
+    {
+        start_time = time(NULL);
+    }
+};
+
+
+bool build_graph(path_planner::CreateGraph::Request &req, path_planner::CreateGraph::Response &res)
+{
+    
+    std::cout<<"Create Graph Service called"<<std::endl;
+
+    try
+    {
+        try
+        {
+            std::string map_id = req.map_id;
+            double roadmap_growth_time = req.roadmap_growth_time;
+            double roadmap_expansion_time = req.roadmap_expansion_time;
+
+            auto space(std::make_shared<ob::RealVectorStateSpace>(2));
+
+            ob::RealVectorBounds bounds(2);
+            bounds.setLow(0,0);
+            bounds.setLow(1,0);
+            bounds.setHigh(0,20000);
+            bounds.setHigh(1,20000);
+
+            space->setBounds(bounds);
+
+            ob::SpaceInformationPtr si(new ob::SpaceInformation(space));
+            ob::ProblemDefinitionPtr pdef(new ob::ProblemDefinition(si));
+            // pdef = ob::ProblemDefinitionPtr(new ob::ProblemDefinition(si));
+
+            LengthMotionValidator *motion_validator = new LengthMotionValidator(si, path_to_io_files,map_id);
+
+            if(error_occured)
+            {
+                res.success = false;
+                res.message = error;
+                return true;
+            }
+
+            ob::MotionValidatorPtr mv(motion_validator);
+            si->setMotionValidator(mv);
+            si->setup();
+
+            // og::PRMstar *path_planner_ptr;
+
+            path_planner_ptr = new og::PRMstar(si);
+            path_planner_ptr->setProblemDefinition(pdef);
+
+            std::cout<<"Growing the RoadMap ..."<<std::endl;
+            path_planner_ptr->growRoadmap(roadmap_growth_time);
+            std::cout<<"Roadmap growth complete."<<std::endl;
+
+            std::cout<<"Expanding Roadmap ..."<<std::endl;
+            path_planner_ptr->expandRoadmap(roadmap_expansion_time);
+            std::cout<<"Roadmap expansion complete."<<std::endl;
+
+            std::cout<<"WRITING VERTICES' COORDINATES ..."<<std::endl;
+
+            std::ofstream coordinates_file(path_to_io_files+map_id+"_coordinates.csv");
+            std::ofstream coordinates_count_file(path_to_io_files+map_id+"_coordinates_count.csv");
+            path_planner_ptr->write_vertices_coordinates(coordinates_file, coordinates_count_file);    
+
+            std::cout<<"WRITING EDGES ..."<<std::endl;
+            std::ofstream edges_file(path_to_io_files+map_id+"_edges.csv");
+            std::ofstream edge_count_file(path_to_io_files+map_id+"_edge_count.csv");
+            path_planner_ptr->write_edges(edges_file,edge_count_file);
+
+            has_system_restarted = false;
+
+            res.success = true;
+            res.message = "";
+
+            return true;            
+        }
+
+        catch(const std::exception& e)
+        {
+            res.success = false;
+            res.message = e.what();
+            return true;
+        }
+    }
+
+    catch(...)
+    {
+        return false;
+    }
+}
+
+bool find_path(path_planner::FindPath::Request &req, path_planner::FindPath::Response &res)
+{
+    try
+    {
+        try
+        {
+            std::string map_id = req.map_id;
+            double start_x = req.start_position[0];
+            double start_y = req.start_position[1];
+            double goal_x = req.target_position[0];
+            double goal_y = req.target_position[1];
+
+            std::cout<<"SEARCHING FOR SOLUTION ..."<<std::endl;
+            std::cout<<"Start(X,Y) -> "<<start_x<<", "<<start_y<<std::endl;
+            std::cout<<"Goal(X,Y) -> "<<goal_x<<", "<<goal_y<<std::endl;
+
+            planner_termination pt(planner_terminate_fn);
+            
+            std::cout<<"HAS SYSTEM RESTARTED -> "<<has_system_restarted<<std::endl;
+
+            auto space(std::make_shared<ob::RealVectorStateSpace>(2));
+
+            ob::ScopedState<ob::RealVectorStateSpace> start(space);
+            start->values[0] = start_x;
+            start->values[1] = start_y;
+
+            ob::ScopedState<ob::RealVectorStateSpace> goal(space);
+            goal->values[0] = goal_x;
+            goal->values[1] = goal_y;
+
+            //TO DO: Set correct bounds.
+            ob::RealVectorBounds bounds(2);
+            bounds.setLow(0,0);
+            bounds.setLow(1,0);
+            bounds.setHigh(0,20000);
+            bounds.setHigh(1,20000);
+
+            space->setBounds(bounds);
+
+            ob::SpaceInformationPtr si(new ob::SpaceInformation(space));
+            ob::ProblemDefinitionPtr pdef(new ob::ProblemDefinition(si));
+
+            LengthMotionValidator *motion_validator = new LengthMotionValidator(si, path_to_io_files, map_id);
+
+            if(error_occured)
+            {
+                res.success = false;
+                res.message = error;
+                return true;
+            }
+
+            ob::MotionValidatorPtr mv(motion_validator);
+            si->setMotionValidator(mv);
+            si->setup();
+
+            pdef->setStartAndGoalStates(start,goal);
+
+            if(has_system_restarted)
+            {
+                og::PRM::Graph g_;
+
+                path_planner_ptr = new og::PRMstar(si,g_);
+
+                std::cout<<"Loading vertices' coordinates ..."<<std::endl;
+                std::ifstream ifs2(path_to_io_files+map_id+"_coordinates.csv");
+                path_planner_ptr->read_vertices_coordinates(ifs2);
+
+                std::cout<<"Loading edges ..."<<std::endl;
+                std::ifstream ifs3(path_to_io_files+map_id+"_edges.csv");
+                path_planner_ptr->read_edges(ifs3);
+
+                path_planner_ptr->setProblemDefinition(pdef);
+                path_planner_ptr->setup();
+
+                path_planner_ptr->growRoadmap_new(query_time);
+                path_planner_ptr->solve(pt);
+            }
+
+            else
+            {        
+                path_planner_ptr->setProblemDefinition(pdef);
+                path_planner_ptr->solve(pt);
+            }
+
+            std::ofstream path_file(path_to_io_files+map_id+"_path.csv");
+
+            og::PathGeometric* path = pdef->getSolutionPath()->as<og::PathGeometric>();
+            const ob::RealVectorStateSpace::StateType *tmp_point = path->getState(path->getStateCount()-1)->as<ob::RealVectorStateSpace::StateType>();
+            double *tmp_values_ = tmp_point->values;
+            double tmp_x = tmp_values_[0];
+            double tmp_y = tmp_values_[1];
+
+            double distance_from_goal = std::sqrt((tmp_x-goal_x)*(tmp_x-goal_x)+(tmp_y-goal_y)*(tmp_y-goal_y));
+            std::cout<<"Distance from goal = "<<distance_from_goal<<std::endl;
+
+            std::vector<float> pos_x;
+            std::vector<float> pos_y;
+
+            if(pdef->hasSolution() && distance_from_goal_threshold >= distance_from_goal)
+            {
+                std::cout<<"Found Solution"<<std::endl;
+                std::cout<<"PRINTING FINAL PATH ..."<<std::endl;
+
+                for(std::size_t path_idx = 0; path_idx < path->getStateCount(); path_idx++)
+                {
+                    const ob::RealVectorStateSpace::StateType *point = path->getState(path_idx)->as<ob::RealVectorStateSpace::StateType>();
+                    double *values_ = point->values;
+                    double x = values_[0];
+                    double y = values_[1];
+
+                    std::cout<<x<<", "<<y<<std::endl;
+                    pos_x.push_back(x);
+                    pos_y.push_back(y);
+
+                    std::string waypoint_string = std::to_string(x)+','+std::to_string(y);
+                    path_file<<waypoint_string<< std::endl;
+                    res.pos_x = pos_x;
+                    res.pos_y = pos_y;
+                    res.height_agl = req.height_agl;
+                    res.success = true;
+                }
+            }
+            else
+            {
+                std::cout<<"No Solution Found"<<std::endl;
+                path_file<<" "<<std::endl;
+                res.success = false;
+                res.message = "No Solution Found";
+            }
+            
+            path_file.close();
+            return true;                
+        }
+        
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+            res.success = false;
+            res.message =e.what();
+            return true;
+        }
+    }
+
+    catch(...)
+    {
+        return false;
+    }
+    
+}
+
+void init_services_and_topics(int argc, char **argv)
+{
+    std::cout<<"Initiating services and topics..."<<std::endl;
+    ros::init(argc,argv,"path_planner");
+    ros::NodeHandle n;
+
+    auto package_base_path = ros::package::getPath("path_planner");
+    path_to_io_files = package_base_path+"/../i-o_files/";
+
+    ros::ServiceServer create_graph_service = n.advertiseService("/path_planner/create_graph",build_graph);
+    ros::ServiceServer find_path_service = n.advertiseService("/path_planner/find_path",find_path);
+
+    ros::spin();
+}

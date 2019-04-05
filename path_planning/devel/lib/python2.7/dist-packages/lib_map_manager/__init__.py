@@ -1,0 +1,1 @@
+/home/darth/Desktop/sc2_ros/devel/.private/map_manager/lib/python2.7/dist-packages/lib_map_manager/__init__.py

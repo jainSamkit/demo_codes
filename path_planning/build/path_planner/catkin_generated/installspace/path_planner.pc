@@ -1,0 +1,8 @@
+prefix=/home/darth/Desktop/sc2_ros/install
+
+Name: path_planner
+Description: Description of path_planner
+Version: 0.0.0
+Cflags: -I/home/darth/Desktop/sc2_ros/install/include
+Libs: -L/home/darth/Desktop/sc2_ros/install/lib -lpath_planner
+Requires: 

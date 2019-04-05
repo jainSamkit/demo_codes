@@ -1,0 +1,19 @@
+[  0%] Built target std_msgs_generate_messages_py
+[  0%] Built target _navigation_generate_messages_check_deps_global_setpoint
+[  0%] Built target geometry_msgs_generate_messages_py
+[  0%] Built target std_msgs_generate_messages_lisp
+[  0%] Built target _navigation_generate_messages_check_deps_MissionWaypoints
+[  0%] Built target geometry_msgs_generate_messages_lisp
+[  0%] Built target geometry_msgs_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_eus
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target _navigation_generate_messages_check_deps_GlobalSetpoint
+[  0%] Built target geometry_msgs_generate_messages_nodejs
+[  0%] Built target geometry_msgs_generate_messages_eus
+[ 17%] Built target navigation_generate_messages_cpp
+[ 17%] Built target std_msgs_generate_messages_nodejs
+[ 41%] Built target navigation_generate_messages_py
+[ 76%] Built target navigation_generate_messages_lisp
+[ 82%] Built target navigation_generate_messages_eus
+[100%] Built target navigation_generate_messages_nodejs
+[100%] Built target navigation_generate_messages

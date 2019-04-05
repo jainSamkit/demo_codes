@@ -1,0 +1,1 @@
+/home/darth/Desktop/sc2_ros/devel/.private/commander/include/commander/CANCEL_OBS_CAPTURE.h

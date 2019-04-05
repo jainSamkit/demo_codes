@@ -1,0 +1,1 @@
+/home/darth/Desktop/sc2_ros/devel/.private/map_manager/lib/python2.7/dist-packages/lib_trajectory_smoothening/__init__.py

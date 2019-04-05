@@ -1,0 +1,6 @@
+float32[] lng
+float32[] lat
+float32[] height_agl
+---
+bool success
+string message

@@ -1,0 +1,8 @@
+prefix=/home/darth/Desktop/sc2_ros/devel/.private/navigation
+
+Name: navigation
+Description: Description of navigation
+Version: 0.0.0
+Cflags: -I/home/darth/Desktop/sc2_ros/devel/.private/navigation/include
+Libs: -L/home/darth/Desktop/sc2_ros/devel/.private/navigation/lib -lnavigation
+Requires: 

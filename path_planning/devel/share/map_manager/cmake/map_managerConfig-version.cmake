@@ -1,0 +1,1 @@
+/home/darth/Desktop/sc2_ros/devel/.private/map_manager/share/map_manager/cmake/map_managerConfig-version.cmake

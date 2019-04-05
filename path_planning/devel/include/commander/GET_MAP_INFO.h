@@ -1,0 +1,1 @@
+/home/darth/Desktop/sc2_ros/devel/.private/commander/include/commander/GET_MAP_INFO.h

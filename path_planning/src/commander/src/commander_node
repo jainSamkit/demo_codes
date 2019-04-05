@@ -1,0 +1,9 @@
+#!/usr/bin/env python
+"""@package commander
+"""
+
+# from vision_apps.msg import *
+# from vision_apps.srv import *
+
+from commander_node import commander_server
+commander_server.main()

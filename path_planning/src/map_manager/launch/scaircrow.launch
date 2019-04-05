@@ -1,0 +1,6 @@
+<launch> 
+    <node pkg="commander" type="commander_node" name="commander_node" respawn="true"> </node>
+    <node pkg="map_manager" type="map_manager_node" name="map_manager_node" respawn="true"> </node>
+    <node pkg="navigation" type="nav_node" name="nav_node" respawn="true"> </node>
+    <node pkg="path_planner" type="path_planning_node" name="path_planning_node" respawn="true"> </node>
+</launch>

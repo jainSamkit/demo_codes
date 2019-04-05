@@ -1,0 +1,10 @@
+string map_id
+float32[] start_position
+float32[] target_position
+float32 height_agl
+---
+float32[] pos_x
+float32[] pos_y
+float32 height_agl
+bool success
+string message

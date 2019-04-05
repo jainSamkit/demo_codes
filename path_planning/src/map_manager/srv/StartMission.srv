@@ -1,0 +1,8 @@
+string map_id
+float32 start_lng
+float32 start_lat
+float32 target_lng
+float32 target_lat
+---
+bool success
+string message

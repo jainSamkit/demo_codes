@@ -1,0 +1,7 @@
+string map_id
+float32[] map_lat
+float32[] map_lng
+float32 height_agl
+---
+bool success
+string message

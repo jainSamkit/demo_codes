@@ -1,0 +1,9 @@
+string map_id
+---
+bool success
+string message
+float32[] map_lng
+float32[] map_lat
+string[] obstacle_ids
+Float1DArray[] obstacle_lngs
+Float1DArray[] obstacle_lats
